@@ -1,0 +1,17 @@
+{%- set name = 'indu' -%}
+{%- set location = 'india' -%}
+i am your student {{ name }} based in {{ location }}
+
+{%- set subject = 'dbt' %}
+i do training on {{subject}}
+{%- set tools = ['dbt','snowflake','Databricks','Bigquery'] %}
+currently we are working with {{ tools[0]}} and {{ tools[1]}}
+{%- for too in tools -%}
+i take training on {{ tool }}
+{%- if tool == 'Redshift' %}
+"That's it"
+{% else %}
+and 
+{% endif -%}
+{%- if loop.last %}"That's it" {% endif %}
+{% endfor %}
