@@ -21,7 +21,7 @@ models:
                     "AMERICA",
                     "EUROPE",
                     "MIDDLE EAST",
-                    "south east",
+                    "south east"
                   ]
                 config:
                   store_failures: true
