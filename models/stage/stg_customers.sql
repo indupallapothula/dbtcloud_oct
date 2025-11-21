@@ -1,9 +1,9 @@
 {{ config(
     tags = ['sample'],
-    {# pre_hook = 'use warehouse test_wh', #}
-    {# post_hook = 'select * from analytics.dbt_inp.stage_regions' #}
+   
 ) }}
-
+ {# pre_hook = 'use warehouse test_wh', #}
+    {# post_hook = 'select * from analytics.dbt_inp.stage_regions' #}
 with customer as (
 select 
         c_custkey as customer_id,
