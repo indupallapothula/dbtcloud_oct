@@ -2,7 +2,7 @@ with emp as (
     select *
     from {{ source('src2','stg_employees') }}
     where employee_id != 99999
-), changed as (
+)
 select
         ANALYTICS.DBT_INDU.seqpay.nextval as EMPLOYEE_KEY,
         -- 2. Employee ID
@@ -29,7 +29,4 @@ select
         d.hire_date as HIRED_DATE_KEY,
         d.date_entered as INSERT_DK,
         current_date() as UPDATE_DK
-    from emp 
-    as d
-)
-select * from changed   
+    from emp d

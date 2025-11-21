@@ -1,8 +1,10 @@
 models:
   - name: stg_regions
+
     description: Table with all region information
     columns:
       - name: region_id
+        data_type: int
         #description: Primary key column for region table
         description: '{{ doc("Primary_Key") }}'
         data_tests:
@@ -12,24 +14,50 @@ models:
         data_tests:
           - accepted_values:
               arguments:
-                values: ['ASIA', 'AFRICA', 'AMERICA']
+                values:
+                  [
+                    "ASIA",
+                    "AFRICA",
+                    "AMERICA",
+                    "EUROPE",
+                    "MIDDLE EAST",
+                    "south east"
+                  ]
                 config:
-                  store_failures: true 
+                  store_failures: true
                   schema: error
   - name: stg_nations
+    config:
+      group: sales
+      contract:
+        enforced: true
+
     columns:
       - name: nation_id
+        data_type: int
+        constraints:
+          - type: not_null
+      - name: name
+        data_type: string
         description: '{{ doc("Primary_Key") }}'
         data_tests:
           - unique
           - not_null
       - name: region_id
+        data_type: int
         description: '{{ doc("Foreign_Key") }}'
         data_tests:
           - relationships:
               to: ref('stg_regions')
               field: region_id
+      - name: updated_at
+        data_type: timestamp_ntz
   - name: stg_customers
+    config:
+      group: sales
+      #pre-hook:
+        #- "use warehouse test_wh"
+
     columns:
       - name: customer_id
         description: '{{ doc("Primary_Key") }}'
@@ -42,7 +70,7 @@ models:
           - relationships:
               to: ref('stg_nations')
               field: nation_id
-  
+
   - name: stg_orders
     columns:
       - name: order_id
@@ -59,19 +87,14 @@ models:
       - name: status_code
         data_tests:
           - accepted_values:
-              values: ['P', 'O' ,'F']
+              values: ["P", "O", "F"]
   - name: stg_line_items
     description: All items of each order
     columns:
       - name: order_item_id
         description: Surrogate key column for order items
+
 seeds:
   - name: suppliers
     config:
       +alias: suppliers_name
-        
-
-
-      
-
-      

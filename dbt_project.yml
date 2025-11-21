@@ -39,6 +39,5 @@ models:
     stage:
       materialized: table
 vars:
-    v_id: '_10'
-
+  v_id: "_10"
 
