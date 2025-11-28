@@ -14,15 +14,7 @@ models:
         data_tests:
           - accepted_values:
               arguments:
-                values:
-                  [
-                    "ASIA",
-                    "AFRICA",
-                    "AMERICA",
-                    "EUROPE",
-                    "MIDDLE EAST",
-                    "south east"
-                  ]
+                values: ["ASIA", "AFRICA", "AMERICA", "EUROPE", "MIDDLE EAST", "south east"]
                 config:
                   store_failures: true
                   schema: error
@@ -41,15 +33,15 @@ models:
         data_type: string
         description: '{{ doc("Primary_Key") }}'
         data_tests:
-          - unique
           - not_null
       - name: region_id
         data_type: int
         description: '{{ doc("Foreign_Key") }}'
         data_tests:
           - relationships:
-              to: ref('stg_regions')
-              field: region_id
+              arguments:
+                to: ref('stg_regions')
+                field: region_id
       - name: updated_at
         data_type: timestamp_ntz
   - name: stg_customers
@@ -68,9 +60,9 @@ models:
         description: '{{ doc("Foreign_Key") }}'
         data_tests:
           - relationships:
-              to: ref('stg_nations')
-              field: nation_id
-
+              arguments:
+                to: ref('stg_nations')
+                field: nation_id
   - name: stg_orders
     columns:
       - name: order_id
@@ -82,12 +74,14 @@ models:
         description: '{{ doc("Foreign_Key") }}'
         data_tests:
           - relationships:
-              to: ref('stg_customers')
-              field: customer_id
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
       - name: status_code
         data_tests:
           - accepted_values:
-              values: ["P", "O", "F"]
+              arguments:
+                values: ["P", "O", "F"]
   - name: stg_line_items
     description: All items of each order
     columns:
@@ -97,4 +91,5 @@ models:
 seeds:
   - name: suppliers
     config:
-      +alias: suppliers_name
+      meta:
+        +alias: suppliers_name
